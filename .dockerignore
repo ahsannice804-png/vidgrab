@@ -1,0 +1,42 @@
+# Dependencies / build artifacts — rebuilt inside the image
+node_modules
+.next
+
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Environment & secrets (never ship .env.local into the image)
+.env
+.env.*
+!.env.example
+
+# Runtime logs & build artifacts
+*.log
+build.log
+dev-server.log
+dev-server.err.log
+prod-server.log
+prod-server.err.log
+tsconfig.tsbuildinfo
+
+# Local download/output directories
+tmp
+.downloads
+
+# Editor / OS cruft
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+Thumbs.db
+.DS_Store
+
+# Misc tooling
+.vercel
+.claude
+.opencode

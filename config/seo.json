@@ -1,0 +1,48 @@
+{
+  "home": {
+    "title": "Free Video Downloader - YouTube, Instagram, TikTok & Facebook 1080p MP4",
+    "description": "Download YouTube videos in 360p, 480p, 720p or 1080p HD, save Instagram Reels, download TikTok videos and save Facebook videos as MP4. Free, fast, no sign-up, no watermark, no fake buttons.",
+    "h1": "Download Any YouTube Video, Instagram Reel, TikTok or Facebook Video, Free",
+    "subtitle": "Paste a link and download in seconds — up to 1080p HD, no sign-up, no watermarks, no fake download buttons."
+  },
+  "youtube": {
+    "title": "YouTube Video Downloader - Save Videos as MP4 in 1080p HD",
+    "description": "Download YouTube videos to MP4 for free in 360p, 480p, 720p or 1080p HD. No sign-up and no watermark — Shorts, youtu.be links and music videos all work.",
+    "h1": "YouTube Video Downloader — Free 1080p MP4 Downloads",
+    "subtitle": "Paste a YouTube link and download any video in the quality you want — from 360p up to 1080p HD, saved as one clean MP4."
+  },
+  "instagram": {
+    "title": "Instagram Reel Downloader - Save Reels as MP4, No Watermark",
+    "description": "Download Instagram Reels and posts as MP4 in HD — free, no watermark, no account needed. Paste any reel or post link and save it in seconds.",
+    "h1": "Instagram Reel Downloader — No Watermark, No Sign-Up",
+    "subtitle": "Paste an Instagram Reel or post link and save the original MP4 in seconds — free, no watermark, no account needed."
+  },
+  "tiktok": {
+    "title": "TikTok Video Downloader - Save Videos Without Watermark",
+    "description": "Download TikTok videos as MP4 without watermark for free. Save TikTok videos to your device in HD by pasting a link — short vm.tiktok.com links work too.",
+    "h1": "TikTok Video Downloader — Download Without Watermark",
+    "subtitle": "Paste a TikTok link and download the video without watermark — free, no sign-up, no app to install."
+  },
+  "facebook": {
+    "title": "Facebook Video Downloader - Save Videos as MP4, Free",
+    "description": "Download Facebook videos as MP4 for free. Watch links, page videos, reels and fb.watch short links all work — no sign-up, no app, no watermark.",
+    "h1": "Facebook Video Downloader — Free MP4 Downloads",
+    "subtitle": "Paste a Facebook video link and save it as MP4 in seconds — watch links, page videos, reels and fb.watch links all work."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "description": "Read how the free YouTube, Instagram and Facebook video downloader handles your data — what we collect, store and never share."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "description": "The terms for using this free YouTube, Instagram and Facebook video downloader — your rights, copyright rules and our obligations."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Questions or feedback about the free video downloader? Contact the team — we reply quickly to questions, bug reports and suggestions."
+  },
+  "about": {
+    "title": "About Us",
+    "description": "Why we built a fast, honest, ad-friendly online video downloader — free forever, no tricks, no watermarks, no fake download buttons."
+  }
+}

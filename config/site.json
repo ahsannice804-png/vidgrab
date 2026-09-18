@@ -1,0 +1,10 @@
+{
+  "name": "VideosDownloader",
+  "tagline": "Fast, free YouTube, Instagram, TikTok & Facebook video downloader",
+  "description": "Download YouTube videos in up to 1080p HD, save Instagram Reels, TikTok videos and Facebook videos as MP4, free and without registration.",
+  "email": "xastsolutions@gmail.com",
+  "company": "Xast Solutions",
+  "defaultOgImage": "/opengraph-image",
+  "language": "en",
+  "locale": "en_US"
+}
