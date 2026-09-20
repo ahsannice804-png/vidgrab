@@ -106,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <meta name="color-scheme" content="light dark" />
         <meta name="monetag" content="fd283c7d6929c7fb1134be3f10527b5a" />
+        <script src="https://quge5.com/88/tag.min.js" data-zone="283486" async data-cfasync="false" />
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
