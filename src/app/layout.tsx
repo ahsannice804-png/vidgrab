@@ -106,7 +106,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <meta name="color-scheme" content="light dark" />
         <meta name="monetag" content="fd283c7d6929c7fb1134be3f10527b5a" />
-        <script src="https://quge5.com/88/tag.min.js" data-zone="283486" async data-cfasync="false" />
+        <script src="https://5gvci.com/act/files/tag.min.js?z=11845884" data-cfasync="false" async />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function(s){s.dataset.zone='11845880',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))",
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(function(s){s.dataset.zone='11845878',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))",
+          }}
+        />
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
