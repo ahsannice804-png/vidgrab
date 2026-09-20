@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
 import WhyChooseUs from "@/components/WhyChooseUs";
@@ -23,6 +24,11 @@ export const metadata: Metadata = {
 };
 
 const seo = getHomeSeo();
+
+const ADSTERRA_NATIVE_SRC =
+  "https://pl31424814.profitableratecpmnetwork.com/5448f26478ee5355b43d925dd8a0aeed/invoke.js";
+
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 const HOME_FAQ = [
   {
@@ -142,6 +148,19 @@ export default function HomePage() {
           <div className="mt-8 w-full max-w-2xl">
             <DownloadTool variant="hero" />
           </div>
+
+          {IS_PRODUCTION && (
+            <div className="mt-6 w-full max-w-2xl">
+              <div id="container-5448f26478ee5355b43d925dd8a0aeed" />
+              <Script
+                id="adsterra-native"
+                async
+                data-cfasync="false"
+                src={ADSTERRA_NATIVE_SRC}
+                strategy="afterInteractive"
+              />
+            </div>
+          )}
 
           <div className="mt-6">
             <TrustBadges />

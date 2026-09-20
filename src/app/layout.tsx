@@ -95,6 +95,13 @@ const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || "G-2NWD8CDYX7";
 
 const GA_INIT_SCRIPT = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_MEASUREMENT_ID}', { anonymize_ip: true, allow_google_signals: false });`;
 
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
+const ADSTERRA_POPUNDER_SRC =
+  "https://pl31424813.profitableratecpmnetwork.com/20/5c/fe/205cfeb6db86994047ed106702a3adcc.js";
+const ADSTERRA_SOCIAL_BAR_SRC =
+  "https://pl31424815.profitableratecpmnetwork.com/2b/08/c5/2b08c519f702dadfbbe1af1e67bf9bb3.js";
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -129,6 +136,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: GA_INIT_SCRIPT }}
         />
+        {IS_PRODUCTION && (
+          <>
+            <Script id="adsterra-popunder" src={ADSTERRA_POPUNDER_SRC} strategy="afterInteractive" />
+            <Script id="adsterra-social-bar" src={ADSTERRA_SOCIAL_BAR_SRC} strategy="afterInteractive" />
+          </>
+        )}
       </body>
     </html>
   );
