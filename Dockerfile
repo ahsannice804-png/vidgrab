@@ -79,9 +79,10 @@ ENV YTDLP_PATH=/usr/local/bin/yt-dlp
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Sitemap / canonical / Open Graph URLs are baked at build time from BASE_URL.
-# Override at build time: `docker build --build-arg BASE_URL=https://<railway-host>`.
-# Falls back to localhost so the build never fails when it is omitted.
-ARG BASE_URL=http://localhost:3000
+# Defaults to the production domain so a plain build produces correct SEO URLs.
+# For a staging/review build, override explicitly:
+# `docker build --build-arg BASE_URL=https://<staging-host>`.
+ARG BASE_URL=https://videosdownloader.online
 ENV BASE_URL=$BASE_URL
 
 WORKDIR /app
