@@ -33,10 +33,11 @@ export default function AboutPage() {
             <a href="https://nextjs.org/" className="text-violet-600" target="_blank" rel="noopener noreferrer">
               Next.js
             </a>{" "}
-            for speed and SEO, a transparent server-side download engine, and nothing
-            that phones home. There are no analytics tracking your every click, no
-            accounts to create, and no data collected beyond what is strictly needed to
-            deliver the file.
+            for speed and SEO, a transparent server-side download engine, and a bare
+            minimum of analytics. We use anonymized, aggregate usage statistics to see
+            which pages people visit — nothing that tracks your every click, no
+            accounts to create, and no personal data collected beyond what is strictly
+            needed to deliver the file.
           </p>
           <p>
             We also wanted to prove that a free tool doesn&rsquo;t have to be a
@@ -84,8 +85,8 @@ export default function AboutPage() {
           <p>
             The frontend is built with React and Tailwind, rendered on the server for
             search engines, and fully responsive from 375px phones up to ultrawide
-            displays. Static pages load fast, and the only network request is the one
-            that actually matters — getting you the video.
+            displays. Static pages load fast — aside from anonymized analytics, the only
+            network request is the one that actually matters: getting you the video.
           </p>
           <p>
             We take the abuse risk seriously: URLs are validated strictly, downloads are
