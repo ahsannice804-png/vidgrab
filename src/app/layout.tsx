@@ -105,6 +105,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <meta name="color-scheme" content="light dark" />
+        <meta name="monetag" content="fd283c7d6929c7fb1134be3f10527b5a" />
       </head>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
