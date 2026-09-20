@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
 import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
-import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import { getHomeSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site, siteDescription } from "@/lib/site";
@@ -24,11 +22,6 @@ export const metadata: Metadata = {
 };
 
 const seo = getHomeSeo();
-
-const ADSTERRA_NATIVE_SRC =
-  "https://pl31424814.profitableratecpmnetwork.com/5448f26478ee5355b43d925dd8a0aeed/invoke.js";
-
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
 
 const HOME_FAQ = [
   {
@@ -149,29 +142,11 @@ export default function HomePage() {
             <DownloadTool variant="hero" />
           </div>
 
-          {IS_PRODUCTION && (
-            <div className="mt-6 w-full max-w-2xl">
-              <div id="container-5448f26478ee5355b43d925dd8a0aeed" />
-              <Script
-                id="adsterra-native"
-                async
-                data-cfasync="false"
-                src={ADSTERRA_NATIVE_SRC}
-                strategy="afterInteractive"
-              />
-            </div>
-          )}
-
           <div className="mt-6">
             <TrustBadges />
           </div>
         </div>
       </section>
-
-      {/* Ad zone — below the fold, clearly separated from the tool. */}
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="home-leaderboard" />
-      </div>
 
       {/* How it works */}
       <HowItWorks />
@@ -271,11 +246,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      {/* Ad zone — between sections */}
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="home-in-article" />
-      </div>
 
       <FAQSection items={HOME_FAQ} />
     </>

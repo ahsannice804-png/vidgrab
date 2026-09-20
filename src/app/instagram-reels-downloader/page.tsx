@@ -4,7 +4,6 @@ import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
 import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
-import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site } from "@/lib/site";
@@ -123,10 +122,6 @@ export default function InstagramPage() {
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="instagram-leaderboard" />
-      </div>
-
       <section className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 sm:py-16" aria-labelledby="ig-content">
         <h2 id="ig-content" className="text-xl font-bold tracking-tight sm:text-2xl">
           Save Instagram Reels as MP4, No Watermark
@@ -151,10 +146,6 @@ export default function InstagramPage() {
       </section>
 
       <HowItWorks />
-
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="instagram-in-article" />
-      </div>
 
       <FAQSection title="Instagram Reel Downloader FAQ" items={IG_FAQ} />
     </>

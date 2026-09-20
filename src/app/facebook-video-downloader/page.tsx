@@ -4,7 +4,6 @@ import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
 import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
-import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site } from "@/lib/site";
@@ -121,10 +120,6 @@ export default function FacebookPage() {
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="facebook-leaderboard" />
-      </div>
-
       <section className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 sm:py-16" aria-labelledby="fb-content">
         <h2 id="fb-content" className="text-xl font-bold tracking-tight sm:text-2xl">
           Save Facebook Videos as MP4
@@ -152,10 +147,6 @@ export default function FacebookPage() {
       </section>
 
       <HowItWorks />
-
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="facebook-in-article" />
-      </div>
 
       <FAQSection title="Facebook Video Downloader FAQ" items={FB_FAQ} />
     </>

@@ -4,7 +4,6 @@ import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
 import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
-import AdSlot from "@/components/AdSlot";
 import JsonLd from "@/components/JsonLd";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site } from "@/lib/site";
@@ -121,10 +120,6 @@ export default function YoutubePage() {
         </div>
       </section>
 
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="youtube-leaderboard" />
-      </div>
-
       {/* SEO content */}
       <section className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 sm:py-16" aria-labelledby="yt-content">
         <h2 id="yt-content" className="text-xl font-bold tracking-tight sm:text-2xl">
@@ -152,10 +147,6 @@ export default function YoutubePage() {
       </section>
 
       <HowItWorks />
-
-      <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
-        <AdSlot slot="youtube-in-article" />
-      </div>
 
       <FAQSection title="YouTube Downloader FAQ" items={YT_FAQ} />
     </>
