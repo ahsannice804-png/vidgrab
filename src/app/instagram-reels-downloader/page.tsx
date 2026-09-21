@@ -5,6 +5,7 @@ import HowItWorks from "@/components/HowItWorks";
 import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
 import JsonLd from "@/components/JsonLd";
+import AdBanner300x250 from "@/components/ads/AdBanner300x250";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site } from "@/lib/site";
 
@@ -144,6 +145,8 @@ export default function InstagramPage() {
           </p>
         </div>
       </section>
+
+      <AdBanner300x250 />
 
       <HowItWorks />
 

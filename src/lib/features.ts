@@ -17,6 +17,9 @@
  */
 export const TIKTOK_ENABLED = process.env.NEXT_PUBLIC_TIKTOK_ENABLED === "true";
 
+/** True when running an optimized production build (`npm run build`/`next build`). */
+export const IS_PRODUCTION = process.env.NODE_ENV === "production";
+
 /** Shown when a TikTok link is pasted while TikTok is disabled. */
 export const TIKTOK_DISABLED_MESSAGE =
   "TikTok support is temporarily unavailable — we're working on it. Try YouTube, Instagram, or Facebook in the meantime.";

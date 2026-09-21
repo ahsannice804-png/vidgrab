@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getHomeSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site, siteTagline } from "@/lib/site";
-import { TIKTOK_ENABLED } from "@/lib/features";
+import { IS_PRODUCTION, TIKTOK_ENABLED } from "@/lib/features";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -141,6 +141,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{ __html: GA_INIT_SCRIPT }}
         />
+        {IS_PRODUCTION && (
+          <Script
+            id="adsterra-social-bar"
+            strategy="afterInteractive"
+            src="https://pl31424815.profitableratecpmnetwork.com/2b/08/c5/2b08c519f702dadfbbe1af1e67bf9bb3.js"
+          />
+        )}
       </body>
     </html>
   );

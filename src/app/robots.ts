@@ -9,6 +9,5 @@ export default function robots(): MetadataRoute.Robots {
       disallow: ["/api/", "/tmp/"],
     },
     sitemap: `${getBaseUrl()}/sitemap.xml`,
-    host: getBaseUrl().replace(/^https?:\/\//, ""),
   };
 }

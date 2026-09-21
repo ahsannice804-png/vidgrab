@@ -6,6 +6,8 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
 import JsonLd from "@/components/JsonLd";
+import AdBanner728x90 from "@/components/ads/AdBanner728x90";
+import AdNativeBanner from "@/components/ads/AdNativeBanner";
 import { getHomeSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site, siteDescription } from "@/lib/site";
 import { TIKTOK_ENABLED, PLATFORM_LIST } from "@/lib/features";
@@ -148,6 +150,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <AdBanner728x90 />
+
       {/* How it works */}
       <HowItWorks />
 
@@ -246,6 +250,8 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
+
+      <AdNativeBanner />
 
       <FAQSection items={HOME_FAQ} />
     </>
