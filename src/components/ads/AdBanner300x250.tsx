@@ -19,7 +19,7 @@ export default function AdBanner300x250() {
 
   return (
     <div className="mx-auto flex w-full max-w-4xl justify-center px-4 py-4 sm:px-6">
-      <div className="flex h-[250px] w-full max-w-[300px] items-center justify-center overflow-hidden rounded-lg bg-muted/30">
+      <div className="flex w-full max-w-[300px] items-center justify-center overflow-hidden">
         <Script
           id="adsterra-300x250-options"
           strategy="afterInteractive"

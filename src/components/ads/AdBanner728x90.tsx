@@ -18,8 +18,8 @@ export default function AdBanner728x90() {
   if (!IS_PRODUCTION) return null;
 
   return (
-    <div className="mx-auto flex w-full max-w-4xl justify-center px-4 py-4 sm:px-6">
-      <div className="flex h-[90px] w-full max-w-[728px] items-center justify-center overflow-hidden rounded-lg bg-muted/30">
+    <div className="mx-auto hidden w-full max-w-4xl justify-center px-4 py-4 sm:px-6 md:flex">
+      <div className="flex max-w-full items-center justify-center overflow-hidden">
         <Script
           id="adsterra-728x90-options"
           strategy="afterInteractive"
