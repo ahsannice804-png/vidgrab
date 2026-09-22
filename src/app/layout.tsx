@@ -100,7 +100,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang={site.language}
       data-scroll-behavior="smooth"
-      className={`${inter.variable} h-full overflow-x-clip antialiased`}
+      className={`${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
