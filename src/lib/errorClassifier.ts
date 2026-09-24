@@ -120,6 +120,18 @@ const MATCHERS: Array<{ re: RegExp; code: ApiErrorCode }> = [
   { re: /socket timed ?out|timed ?out during/i, code: "NETWORK_ERROR" },
   { re: /temporarily blocked/i, code: "UNAVAILABLE" },
 
+  // --- YouTube player / PO-token throttling and bot handshakes --------------
+  // YouTube blocking the automated client (datacenter IP, expired cookies, a
+  // changed player cipher) is NOT a deleted video and NOT the user's own
+  // rate-limit. Without these rules the failures vanish into the generic
+  // EXTRACTOR_ERROR catch-all, masking the real cause from both the user and
+  // the operator. Must stay AFTER the transport block so the existing
+  // "HTTP Error 429"/"HTTP Error 4xx/5xx" matchers keep winning: the bare
+  // `Error 429` / `Throttled` forms YouTube emits are a server-side throttle,
+  // surfaced here as a temporary network issue.
+  { re: /nsig extraction failed/i, code: "EXTRACTOR_OUTDATED" },
+  { re: /youtube.{0,80}throttled|\berror\s*429\b/i, code: "NETWORK_ERROR" },
+
   // --- The extractor ran but couldn't produce a stream ---------------------
   { re: /unable to extract/i, code: "EXTRACTOR_ERROR" },
   // TikTok's status-code failure from the video API (bot-blocking, transient

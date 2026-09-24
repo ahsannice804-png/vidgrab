@@ -65,6 +65,19 @@ const CASES: Case[] = [
     code: "EXTRACTOR_ERROR",
   },
 
+  {
+    label: "youtube nsig extraction failed",
+    stderr:
+      "ERROR: [youtube] dQw4w9WgXcQ: nsig extraction failed: You may experience throttling for some formats. Please report this issue on https://github.com/yt-dlp/yt-dlp/issues",
+    code: "EXTRACTOR_OUTDATED",
+  },
+  {
+    label: "youtube bare error 429",
+    stderr: "ERROR: [youtube] dQw4w9WgXcQ: Error 429: The request could not be fulfilled (blocked)",
+    code: "NETWORK_ERROR",
+  },
+  { label: "youtube throttled", stderr: "ERROR: [youtube] dQw4w9WgXcQ: YouTube said: Throttled", code: "NETWORK_ERROR" },
+
   // Genuine platform unavailability
   { label: "video unavailable", stderr: "ERROR: [tiktok] Video unavailable", code: "UNAVAILABLE" },
   { label: "this video is unavailable", stderr: "ERROR: This video is unavailable", code: "UNAVAILABLE" },

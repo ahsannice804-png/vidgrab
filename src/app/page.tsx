@@ -4,7 +4,6 @@ import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import FAQSection from "@/components/FAQSection";
-import TrustBadges from "@/components/TrustBadges";
 import JsonLd from "@/components/JsonLd";
 import AdBanner728x90 from "@/components/ads/AdBanner728x90";
 import AdNativeBanner from "@/components/ads/AdNativeBanner";
@@ -28,18 +27,17 @@ const seo = getHomeSeo();
 const HOME_FAQ = [
   {
     question: "Is it really free to download videos?",
-    answer:
-      "Yes. There are no hidden fees, no trial limits and no premium paywall. You can download as many videos and reels as you need, completely free.",
+    answer: "Yes — no fees, no limits, no paywall. Download as much as you want.",
   },
   {
     question: "How do I download a YouTube video in 1080p HD?",
     answer:
-      "Paste your YouTube link, wait a second for the video preview, then tap the 1080p HD button. If the video offers 1080p, it will be prepared and downloaded as an MP4 automatically.",
+      "Paste the link, wait for the preview, tap the 1080p HD button, and the MP4 downloads automatically.",
   },
   {
     question: "How do I download an Instagram Reel without a watermark?",
     answer:
-      "Copy the link of the reel you want and paste it above. We fetch the original file directly from Instagram, so reels download in good quality without the watermark overlay.",
+      "Paste the reel link above. We fetch the original file directly from Instagram, so it downloads clean and without the watermark.",
   },
   ...(TIKTOK_ENABLED
     ? [
@@ -53,22 +51,16 @@ const HOME_FAQ = [
   {
     question: "Can I download Facebook videos?",
     answer:
-      "Yes. Paste any public Facebook video link — watch links, page videos, reels or short fb.watch links — and download the original MP4. Videos the owner restricts to signed-in viewers can\u2019t be downloaded.",
+      "Yes. Paste any public video link — watch links, page videos, reels or short fb.watch links — and download the original MP4. Videos locked to signed-in viewers can\u2019t be downloaded.",
   },
   {
     question: "Will it work on my phone?",
-    answer:
-      "Yes. The whole tool is mobile-first and works in any modern browser — Chrome, Safari, Firefox and Edge. There is no app to install.",
+    answer: "Yes — it\u2019s mobile-first and works on Chrome, Safari, Firefox and Edge. No app to install.",
   },
   {
     question: `Is downloading ${PLATFORM_LIST} content legal?`,
     answer:
       "Downloading is fine when you have the right to save the content — for example your own videos or content with an open license. Always respect the creator\u2019s rights and the platform\u2019s terms.",
-  },
-  {
-    question: "Why are other downloader sites full of fake buttons?",
-    answer:
-      "Many sites make money per fake click instead of actually helping you. Every button here really works — that trust is the whole point of this tool, and it\u2019s the only way to keep people coming back.",
   },
 ];
 
@@ -135,17 +127,12 @@ export default function HomePage() {
             {seo.h1 ?? "Download Any YouTube Video, Instagram Reel, TikTok or Facebook Video, Free"}
           </h1>
 
-          <p className="mt-5 max-w-xl text-balance text-base leading-7 text-muted sm:text-lg">
-            {seo.subtitle ??
-              "Paste a link and download in seconds — up to 1080p HD, no sign-up, no watermarks, no fake download buttons."}
+          <p className="mt-5 max-w-xl text-balance text-base leading-6 text-muted sm:text-lg">
+            Paste a link, click download, and grab your file in seconds.
           </p>
 
           <div className="mt-8 w-full max-w-2xl">
             <DownloadTool variant="hero" />
-          </div>
-
-          <div className="mt-6">
-            <TrustBadges />
           </div>
         </div>
       </section>
@@ -164,7 +151,7 @@ export default function HomePage() {
             What do you want to download?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted">
-            {TIKTOK_ENABLED ? "Four" : "Three"} dedicated tools, one fast engine underneath.
+            {TIKTOK_ENABLED ? "Four" : "Three"} tools. One fast engine.
           </p>
         </div>
 
@@ -186,8 +173,7 @@ export default function HomePage() {
               YouTube Video Downloader
             </h3>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Download any YouTube video as MP4 — 360p, 480p, 720p or 1080p HD.
-              Works for regular videos and Shorts.
+              Save videos and Shorts as MP4 — up to 1080p HD.
             </p>
           </Link>
 
@@ -206,8 +192,7 @@ export default function HomePage() {
               Instagram Reel Downloader
             </h3>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Save Instagram Reels and posts as MP4 in HD — no watermark, no
-              account needed.
+              Download reels and posts in HD — no watermark, no account.
             </p>
           </Link>
 
@@ -225,8 +210,7 @@ export default function HomePage() {
                 TikTok Video Downloader
               </h3>
               <p className="mt-2 text-sm leading-6 text-muted">
-                Save TikTok videos as MP4 without the watermark — no app, no
-                sign-up, works from any link type.
+                Save TikTok videos as MP4 — no watermark, from any link type.
               </p>
             </Link>
           )}
@@ -244,8 +228,7 @@ export default function HomePage() {
               Facebook Video Downloader
             </h3>
             <p className="mt-2 text-sm leading-6 text-muted">
-              Save public Facebook videos and reels as MP4 — watch links,
-              page videos and fb.watch shorts all work.
+              Save public videos and reels as MP4 — watch links and fb.watch included.
             </p>
           </Link>
         </div>

@@ -11,21 +11,19 @@ const STEPS: Step[] = [
     icon: "paste",
     title: "Paste your link",
     description: TIKTOK_ENABLED
-      ? "Copy the URL of a YouTube video, Instagram Reel, TikTok or Facebook video and paste it into the box above."
-      : "Copy the URL of a YouTube video, Instagram Reel or Facebook video and paste it into the box above.",
+      ? "Copy a YouTube, Instagram, TikTok or Facebook video link and paste it in the box above."
+      : "Copy a YouTube, Instagram or Facebook video link and paste it in the box above.",
   },
   {
     icon: "select",
     title: "Pick a quality",
-    description: TIKTOK_ENABLED
-      ? "We fetch the video instantly and show real sizes. Choose from 360p, 480p, 720p or 1080p HD \u2014 or the best available quality for TikTok and Facebook."
-      : "We fetch the video instantly and show real sizes. Choose from 360p, 480p, 720p or 1080p HD \u2014 or the best available quality for Facebook.",
+    description:
+      "We fetch the video instantly and show real sizes — choose the quality you want.",
   },
   {
     icon: "download",
     title: "Download the file",
-    description:
-      "Your video is prepared as an MP4 — no sign-up, no watermarks, no waiting for emails.",
+    description: "Your video is prepared as an MP4 — no sign-up, no watermarks.",
   },
 ];
 
@@ -73,7 +71,7 @@ export default function HowItWorks() {
           How It Works
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-muted">
-          Downloading takes under a minute. No registration, no email, no nonsense.
+          Three steps to your file.
         </p>
       </div>
       <ol className="mt-8 grid gap-6 sm:mt-12 sm:grid-cols-3 sm:gap-8">

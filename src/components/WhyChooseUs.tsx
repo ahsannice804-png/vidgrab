@@ -1,43 +1,29 @@
-import { TIKTOK_ENABLED } from "@/lib/features";
-
 interface Feature {
   title: string;
   description: string;
-  icon: "free" | "fast" | "quality" | "privacy" | "device" | "nofake";
+  icon: "free" | "fast" | "quality" | "nofake";
 }
 
 const FEATURES: Feature[] = [
   {
     icon: "free",
-    title: "Free, forever",
-    description: "No paywall, no premium tier, no credit card. Download as much as you want.",
+    title: "Free, no sign-up",
+    description: "No paywall and no account — download as much as you want.",
   },
   {
     icon: "fast",
     title: "Fast preparation",
-    description: "Your download is prepared on a fast server and streamed straight to your device.",
+    description: "Prepared on a fast server and streamed straight to your device.",
   },
   {
     icon: "quality",
     title: "Real HD quality",
-    description: TIKTOK_ENABLED
-      ? "Up to 1080p HD for YouTube, best quality for TikTok and Facebook. We only offer qualities that actually exist for each video."
-      : "Up to 1080p HD for YouTube and the best quality for Facebook. We only offer qualities that actually exist for each video.",
-  },
-  {
-    icon: "privacy",
-    title: "No sign-up",
-    description: "We don\u2019t ask for an account, your email, or any personal details.",
-  },
-  {
-    icon: "device",
-    title: "Works everywhere",
-    description: "Mobile, tablet and desktop. No app installation needed — it just works in your browser.",
+    description: "Up to 1080p HD — and only qualities that really exist for each video.",
   },
   {
     icon: "nofake",
     title: "No fake buttons",
-    description: "Every button really works. No trap links disguised as downloads, ever.",
+    description: "Every button really works — no trap links disguised as downloads.",
   },
 ];
 
@@ -73,20 +59,6 @@ function Icon({ icon }: { icon: Feature["icon"] }) {
           <path d="M12 2l2.9 6.26L21.8 9l-5 4.84L18.24 21 12 17.27 5.76 21 7.2 13.84 2.2 9l6.9-.74L12 2z" />
         </svg>
       );
-    case "privacy":
-      return (
-        <svg {...common}>
-          <rect x="4" y="10" width="16" height="11" rx="2" />
-          <path d="M8 10V6a4 4 0 0 1 8 0v4" />
-        </svg>
-      );
-    case "device":
-      return (
-        <svg {...common}>
-          <rect x="4" y="2" width="16" height="20" rx="2" />
-          <path d="M12 18h.01" />
-        </svg>
-      );
     case "nofake":
       return (
         <svg {...common}>
@@ -106,10 +78,10 @@ export default function WhyChooseUs() {
             Why People Choose Us
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted">
-            A downloader that respects you — and the reason most tools are slow is the reason we’re not.
+            No accounts. No fees. No fake buttons.
           </p>
         </div>
-        <ul className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
           {FEATURES.map((feature) => (
             <li
               key={feature.title}

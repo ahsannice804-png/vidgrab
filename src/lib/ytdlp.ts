@@ -528,6 +528,10 @@ async function resolveYtCookiesFlags(): Promise<string[]> {
 
   ytCookiesFlags = [];
 
+  console.warn(
+    "[cookies] No YouTube cookies configured (YOUTUBE_COOKIES_PATH/CONTENT missing, empty or unreadable). YouTube commonly bot-blocks datacenter IPs without a logged-in session — expect frequent RESTRICTED/EXTRACTOR failures on production hosts until cookies are set.",
+  );
+
   return ytCookiesFlags;
 
 }
@@ -605,6 +609,10 @@ async function resolveFacebookCookiesFlags(): Promise<string[]> {
   }
 
   facebookCookiesFlags = [];
+
+  console.warn(
+    "[cookies] No Facebook cookies configured (FACEBOOK_COOKIES_PATH/CONTENT missing, empty or unreadable). Facebook commonly login-walls datacenter IPs — expect frequent LOGIN_REQUIRED failures on production hosts until cookies are set.",
+  );
 
   return facebookCookiesFlags;
 
