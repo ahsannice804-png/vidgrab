@@ -312,15 +312,22 @@ journalctl -u video-downloader -f                                  # watch logs
 
 Next.js serves on 127.0.0.1:3000. Put nginx in front for HTTP/HTTPS:
 
+> Use the versioned, complete config in **`deploy/nginx-videosdownloader.conf`** and
+> adapt the domain (and any differing cert paths). It enforces the canonical host
+> (`https://videosdownloader.online`, no `www`): all `http://` and `https://www.`
+> requests 301 to the apex with the full path + query preserved, using `$request_uri`.
+
 ```bash
 sudo tee /etc/nginx/sites-available/video-downloader >/dev/null <<'EOF'
-# HTTP -> HTTPS redirect
+# HTTP -> HTTPS, straight to the canonical apex host (single hop).
+# Preserves the complete path and query string via $request_uri.
 server {
     listen 80;
-    server_name yourdomain.com;
-    return 301 https://$host$request_uri;
+    server_name yourdomain.com www.yourdomain.com;
+    return 301 https://yourdomain.com$request_uri;
 }
 
+# HTTPS canonical host (apex). Serves the Next.js app.
 server {
     listen 443 ssl http2;
     server_name yourdomain.com;
@@ -338,6 +345,19 @@ server {
         proxy_read_timeout 3600s;      # long downloads stream through here
     }
 }
+
+# HTTPS "www" -> canonical apex 301 (same SAN certificate serves both names).
+server {
+    listen 443 ssl http2;
+    server_name www.yourdomain.com;
+
+    ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    return 301 https://yourdomain.com$request_uri;
+}
 EOF
 
 sudo ln -s /etc/nginx/sites-available/video-downloader /etc/nginx/sites-enabled/
@@ -345,11 +365,24 @@ sudo rm -f /etc/nginx/sites-enabled/default
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-Issue a free TLS certificate:
+Issue a free TLS certificate. Request both hostnames so the single SAN
+certificate covers apex **and** `www` (the redirect block above reuses it):
 
 ```bash
 sudo apt-get install -y certbot python3-certbot-nginx
-sudo certbot --nginx -d yourdomain.com   # follow the prompts (email + agree + redirect)
+# Run this AFTER nginx is serving the site config (certbot injects its ssl
+# lines into the apex 443 block and creates the live/<domain>/ cert paths
+# that the www block above references).
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com   # follow the prompts
+```
+
+Verify canonical-host redirects from the edge:
+
+```bash
+curl -I http://yourdomain.com/            # 301 -> https://yourdomain.com/
+curl -I http://www.yourdomain.com/        # 301 -> https://yourdomain.com/
+curl -I https://www.yourdomain.com/       # 301 -> https://yourdomain.com/
+curl -I https://yourdomain.com/           # 200
 ```
 
 Verify from your browser: `https://yourdomain.com` loads and the padlock shows.
