@@ -106,6 +106,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <meta name="color-scheme" content="light dark" />
         <meta name="monetag" content="fd283c7d6929c7fb1134be3f10527b5a" />
+        <meta name="google-adsense-account" content="ca-pub-9675984974742919" />
         <script src="https://5gvci.com/act/files/tag.min.js?z=11845884" data-cfasync="false" async />
         <script
           dangerouslySetInnerHTML={{
