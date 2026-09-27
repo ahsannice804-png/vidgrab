@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { promises as fs, createReadStream } from "node:fs";
-import { Readable } from "node:stream";
 import path from "node:path";
 import { consumeFile } from "@/lib/jobs";
 
@@ -47,7 +46,43 @@ export async function GET(
   const headerFilename = `filename="${asciiName}"; filename*=UTF-8''${encodeURIComponent(file.filename)}`;
 
   const nodeStream = createReadStream(file.filePath);
-  const webStream = Readable.toWeb(nodeStream) as unknown as ReadableStream<Uint8Array>;
+
+  let streamClosed = false;
+  const webStream = new ReadableStream<Uint8Array>({
+    start(controller) {
+      nodeStream.on("data", (chunk: string | Buffer) => {
+        if (streamClosed || typeof chunk === "string") return;
+        try {
+          controller.enqueue(new Uint8Array(chunk));
+        } catch {
+          streamClosed = true;
+          nodeStream.destroy();
+        }
+      });
+      nodeStream.on("end", () => {
+        if (streamClosed) return;
+        streamClosed = true;
+        try {
+          controller.close();
+        } catch {
+          // no-op
+        }
+      });
+      nodeStream.on("error", () => {
+        if (streamClosed) return;
+        streamClosed = true;
+        try {
+          controller.error(new Error("File stream failed."));
+        } catch {
+          // no-op
+        }
+      });
+    },
+    cancel() {
+      streamClosed = true;
+      nodeStream.destroy();
+    },
+  });
 
   const response = new Response(webStream, {
     status: 200,

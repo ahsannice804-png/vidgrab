@@ -538,6 +538,64 @@ async function resolveYtCookiesFlags(): Promise<string[]> {
 
 
 
+// Cache the resolved Instagram cookies flags across calls in the same process.
+// Lives completely separately from the YouTube/Facebook flags above: each
+// platform needs its own logged-in session, and they must never be mixed.
+let instagramCookiesFlags: string[] | undefined;
+
+/**
+ * Resolves the optional yt-dlp cookies file used to fetch Instagram Reels/posts
+ * (Instagram frequently demands a logged-in session even for public content).
+ *
+ * Two sources, in priority order:
+ *   1. `INSTAGRAM_COOKIES_PATH`   – absolute path to a cookies.txt file baked
+ *      into the image / mounted into the container (checked with existsSync).
+ *   2. `INSTAGRAM_COOKIES_CONTENT` – the raw Netscape-format cookies.txt
+ *      content, written once per process to a private 0600 temp file. Preferred
+ *      on Railway/Vercel, where the OS temp dir is the only writable location.
+ *
+ * When neither is configured (or both fail) it returns `[]`, so every yt-dlp
+ * call behaves exactly as before and no other platform is affected. Instagram
+ * cookie data itself is never logged or echoed into error output.
+ */
+async function resolveInstagramCookiesFlags(): Promise<string[]> {
+  if (instagramCookiesFlags !== undefined) return instagramCookiesFlags;
+
+  const content = process.env.INSTAGRAM_COOKIES_CONTENT;
+
+  try {
+    const cookiePath = process.env.INSTAGRAM_COOKIES_PATH?.trim();
+    if (cookiePath) {
+      if (existsSync(cookiePath)) {
+        instagramCookiesFlags = ["--cookies", cookiePath];
+        return instagramCookiesFlags;
+      }
+      console.warn("[cookies] INSTAGRAM_COOKIES_PATH is set but the file was not found; continuing without cookies.");
+    }
+  } catch {
+    // treat any path-resolution error as "no cookies configured"
+  }
+
+  if (content && content.trim().length > 0) {
+    try {
+      const dest = path.join(os.tmpdir(), `ig-cookies-${process.pid}.txt`);
+      await fs.writeFile(dest, `${content.replace(/\r\n/g, "\n")}\n`, { mode: 0o600 });
+      instagramCookiesFlags = ["--cookies", dest];
+      return instagramCookiesFlags;
+    } catch {
+      console.warn("[cookies] Could not write the Instagram cookies content to a temp file; continuing without cookies.");
+    }
+  }
+
+  instagramCookiesFlags = [];
+
+  console.warn(
+    "[cookies] No Instagram cookies configured (INSTAGRAM_COOKIES_PATH/CONTENT missing, empty or unreadable). Instagram commonly login-walls datacenter IPs (empty media response) — expect frequent LOGIN_REQUIRED failures on production hosts until cookies are set.",
+  );
+
+  return instagramCookiesFlags;
+}
+
 // Cache the resolved Facebook cookies flags across calls in the same process.
 // Lives completely separately from the YouTube flags above: Facebook needs its
 // own logged-in session, and the two must never be mixed.
@@ -621,13 +679,14 @@ async function resolveFacebookCookiesFlags(): Promise<string[]> {
 /**
  * Resolves which cookie set (if any) applies to a given URL. Facebook cookies
  * are used ONLY for facebook.com / fb.watch requests, YouTube cookies ONLY for
- * YouTube requests, and every other platform runs without cookies — so the two
+ * YouTube requests, Instagram cookies ONLY for Instagram requests — so the
  * login sessions never bleed into each other.
  */
 async function resolveCookiesFlagsFor(url: string): Promise<string[]> {
   const platform = detectPlatform(url)?.platform;
   if (platform === "facebook") return resolveFacebookCookiesFlags();
   if (platform === "youtube") return resolveYtCookiesFlags();
+  if (platform === "instagram") return resolveInstagramCookiesFlags();
   return [];
 }
 
@@ -1683,6 +1742,70 @@ export async function optimizeFormatExpression(
 
   const audioPart = audioParts.join("+");
 
+  if (ids.length < 2) {
+    // Current options.ts shape: `A+ba[ext=m4a]/B+ba[ext=m4a]/...` — each video
+    // alternative already carries its own audio. Keep the server's intended
+    // "use whichever encode is faster right now" behavior by probing A vs B
+    // and moving the faster one to the front.
+    const alts = formatExpression.split("/");
+
+    const v1 = alts[0]?.split("+")[0];
+
+    const v2 = alts[1]?.split("+")[0];
+
+    const idOk =
+      (n: string | undefined) => typeof n === "string" && /^[A-Za-z0-9_.-]+$/.test(n);
+
+    if (idOk(v1) && idOk(v2)) {
+      const probe = await runYtDlp([
+
+        "--no-warnings",
+
+        "--no-cache-dir",
+
+        "--no-playlist",
+
+        "--get-url",
+
+        "-f",
+
+        `${v1},${v2}`,
+
+        "--socket-timeout",
+
+        "20",
+
+        "--",
+
+        url,
+
+      ]);
+
+      if (probe.code === 0) {
+        const urls = probe.stdout
+
+          .trim()
+
+          .split("\n")
+
+          .map((l) => l.trim())
+
+          .filter((l) => l.startsWith("http"));
+
+        if (urls.length >= 2) {
+          const speeds = await Promise.all(urls.map(probeUrlSpeed));
+
+          const faster =
+            (speeds[0] ?? 0) >= (speeds[1] ?? 0) ? v1 : v2;
+
+          if (faster === v2) return `${alts[1]}/${alts[0]}/${alts.slice(2).join("/")}`;
+        }
+      }
+    }
+
+    return formatExpression;
+  }
+
   const result = await runYtDlp([
 
     "--no-warnings",
@@ -1971,7 +2094,19 @@ export async function prepareDownload(
 
 
 
-  const files = await findJobFiles(dir, jobId);
+  let files = await findJobFiles(dir, jobId);
+
+  // On hosts without a system ffmpeg, yt-dlp may exit 0 while leaving only
+  // per-format legs (e.g. `<job>.f230.mp4` + `<job>.f251.webm`) because its
+  // own merge post-processing never ran. Merge the legs with the app's own
+  // ffmpeg (bundled or FFMPEG_PATH) so the download still completes instead
+  // of failing with "No output file was produced".
+
+  if (files.length === 0) {
+
+    files = await mergeJobLegs(dir, jobId);
+
+  }
 
   if (files.length === 0) {
 
@@ -2026,6 +2161,86 @@ export async function prepareDownload(
 }
 
 
+
+async function mergeJobLegs(dir: string, jobId: string): Promise<Array<{ filePath: string; size: number }>> {
+
+  if (!hasFfmpeg()) return [];
+
+  const prefix = `${jobId}.`;
+
+  const entries = await fs.readdir(dir, { withFileTypes: true });
+
+  const sized: Array<{ p: string; size: number }> = [];
+
+  for (const entry of entries) {
+
+    if (!entry.isFile()) continue;
+
+    if (!entry.name.startsWith(prefix)) continue;
+
+    if (/\.part$|\.ytdl$|\.temp$/.test(entry.name)) continue;
+
+    const filePath = path.join(dir, entry.name);
+
+    try {
+
+      const stat = await fs.stat(filePath);
+
+      if (stat.size > 0) sized.push({ p: filePath, size: stat.size });
+
+    } catch {
+
+      // Skip leg files that are no longer readable.
+
+    }
+
+  }
+
+  if (sized.length < 2) return [];
+
+  const legs = sized.sort((a, b) => b.size - a.size);
+
+  const inputs = legs.map((l) => l.p);
+
+  const outPath = path.join(dir, `${jobId}.mp4`);
+
+  const result = await runFfmpeg([
+
+    "-y",
+
+    "-v",
+
+    "error",
+
+    ...inputs.flatMap((p) => ["-i", p]),
+
+    "-c:v",
+
+    "copy",
+
+    "-c:a",
+
+    "aac",
+
+    "-b:a",
+
+    "192k",
+
+    "-movflags",
+
+    "+faststart",
+
+    outPath,
+
+  ]);
+
+  if (result.code !== 0) return [];
+
+  for (const p of inputs) fs.unlink(p).catch(() => undefined);
+
+  return findJobFiles(dir, jobId);
+
+}
 
 async function findJobFiles(dir: string, jobId: string) {
 

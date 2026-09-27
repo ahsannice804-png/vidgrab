@@ -255,8 +255,10 @@ Everything the app reads from `process.env` (grep-verified):
 | `YOUTUBE_COOKIES_PATH` | secret | `/run/secrets/yt-cookies.txt` | Alternative: absolute path of a cookies.txt file baked/mounted into the container (checked with `existsSync`). Takes priority over `_CONTENT`. | `src/lib/ytdlp.ts:487–493` |
 | `FACEBOOK_COOKIES_CONTENT` | secret | Netscape cookies.txt content (multi-line) | Same, but for facebook.com sessions (kept strictly separate from YouTube cookies). | `src/lib/ytdlp.ts:561, 593` |
 | `FACEBOOK_COOKIES_PATH` | secret | `/run/secrets/fb-cookies.txt` | Alternative path form for Facebook cookies. | `src/lib/ytdlp.ts:565–571` |
+| `INSTAGRAM_COOKIES_CONTENT` | secret | Netscape cookies.txt content (multi-line) | Logged-in Instagram session. Instagram login-walls datacenter IPs with an "empty media response"; without cookies expect frequent `LOGIN_REQUIRED` failures. Kept strictly separate from YouTube/Facebook cookies. | `src/lib/ytdlp.ts:619, 655` |
+| `INSTAGRAM_COOKIES_PATH` | secret | `/run/secrets/ig-cookies.txt` | Alternative path form for Instagram cookies. | `src/lib/ytdlp.ts:623–629` |
 
-> ⚠️ **Important**: the names are `YOUTUBE_COOKIES_CONTENT` / `FACEBOOK_COOKIES_CONTENT` (or `_PATH`) — **not** `YOUTUBE_COOKIES` / `FACEBOOK_COOKIES`. Setting the wrong name means cookies are silently ignored and "age-restricted / region-locked" errors return. Full explanation in [§6](#6-how-cookies-work-youtube--facebook).
+> ⚠️ **Important**: the names are `YOUTUBE_COOKIES_CONTENT` / `FACEBOOK_COOKIES_CONTENT` / `INSTAGRAM_COOKIES_CONTENT` (or `_PATH`) — **not** `YOUTUBE_COOKIES` / `FACEBOOK_COOKIES` / `INSTAGRAM_COOKIES`. Setting the wrong name means cookies are silently ignored and "age-restricted / region-locked" errors return. Full explanation in [§6](#6-how-cookies-work-youtube-facebook--instagram).
 
 ### Configuration (public / not sensitive)
 
@@ -286,7 +288,7 @@ Everything the app reads from `process.env` (grep-verified):
 
 ---
 
-## 6. How Cookies Work (YouTube & Facebook)
+## 6. How Cookies Work (YouTube, Facebook & Instagram)
 
 **Why cookies are needed.** Cloud/datacenter IPs (Railway, AWS EC2, etc.) get flagged by Google/YouTube as bots — YouTube then shows *"age-restricted"*, *"restricted"*, "sign in to confirm you're not a bot" or region-lock messages **even for normal public videos**, and yt-dlp fails. A cookies file from a logged-in YouTube browser session tells the extractor "this is a real user", bypassing the bot check. Facebook similarly demands signed-in sessions for many public videos (login walls). Everything is resolved in `src/lib/ytdlp.ts`:
 - `resolveYtCookiesFlags()` (`ytdlp.ts:479`) and `resolveFacebookCookiesFlags()` (`ytdlp.ts:557`) read the env vars, write the content to a **private `0600` temp file** under `os.tmpdir()` (`yt-cookies-<pid>.txt` / `fb-cookies-<pid>.txt`), and return `["--cookies", <path>]`.

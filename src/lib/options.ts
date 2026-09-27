@@ -592,8 +592,11 @@ export function formatExpression(
     if (option.needsMerge && option.altFormatId && option.altFormatId !== option.formatId) {
       // Two copies of the same-height encode (e.g. HLS + DASH): offer both as
       // the primary choice; at download time the server speed-probes them and
-      // uses whichever is faster right now.
-      return `${option.formatId}/${option.altFormatId}+ba[ext=m4a]/${fallback}`;
+      // uses whichever is faster right now. Each video alternative must carry
+      // its own `+ba[ext=m4a]` — yt-dlp treats `/` as alternative slots and
+      // `+` binds within a slot, so `A/B+ba[ext=m4a]` would silently select
+      // the bare `A` stream and produce a video with no audio track.
+      return `${option.formatId}+ba[ext=m4a]/${option.altFormatId}+ba[ext=m4a]/${fallback}`;
     }
     return option.needsMerge
       ? `${option.formatId}+ba[ext=m4a]/${fallback}`

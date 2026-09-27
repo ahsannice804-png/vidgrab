@@ -48,6 +48,7 @@ See `.env.example` for the full list. Key ones:
 | `NO_FFMPEG` | unset | Set to `1` to skip merging (progressive formats only) |
 | `YOUTUBE_COOKIES_CONTENT` | unset | Netscape cookies.txt content for a logged-in YouTube session (writes a private temp file) |
 | `FACEBOOK_COOKIES_CONTENT` | unset | Netscape cookies.txt content for a logged-in Facebook session (separate from the YouTube one) |
+| `INSTAGRAM_COOKIES_CONTENT` | unset | Netscape cookies.txt content for a logged-in Instagram session (separate from the others) |
 
 > Without yt-dlp/ffmpeg installed, the API returns a friendly `TOOLS_MISSING`
 > error instead of crashing — the site still renders normally.

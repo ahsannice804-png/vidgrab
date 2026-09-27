@@ -226,7 +226,7 @@ AWS datacenter IPs get flagged by YouTube (videos appear *"age-restricted"*,
 providing cookies from a logged-in browser session:
 
 1. In Chrome install **"Get cookies.txt LOCALLY"** and export cookies for youtube.com
-   (and separately for facebook.com if you hit login walls).
+   (and separately for facebook.com / instagram.com if you hit login walls).
 2. Add the whole file content to `.env.local` as a single env var (newlines kept):
 
 ```bash
@@ -234,6 +234,7 @@ providing cookies from a logged-in browser session:
 cat >> .env.local <<'EOF'
 YOUTUBE_COOKIES_CONTENT=$(cat /tmp/youtube_cookies.txt)
 FACEBOOK_COOKIES_CONTENT=$(cat /tmp/fb_cookies.txt)
+INSTAGRAM_COOKIES_CONTENT=$(cat /tmp/instagram_cookies.txt)
 EOF
 ```
 

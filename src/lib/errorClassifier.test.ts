@@ -59,10 +59,10 @@ const CASES: Case[] = [
     code: "EXTRACTOR_OUTDATED",
   },
   {
-    label: "ig login wall is NOT extractor-outdated",
+    label: "ig empty media response is a login wall, not extractor-outdated",
     stderr:
       "ERROR: [Instagram] C1Bf4tOPVqv: Instagram sent an empty media response. Check if this post is accessible in your browser without being logged-in. If it is not, then use --cookies-from-browser or --cookies for the authentication. See https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp for how to manually pass cookies. Otherwise, if the post is accessible in browser without being logged-in, please report this issue on https://github.com/yt-dlp/yt-dlp/issues?q=",
-    code: "EXTRACTOR_ERROR",
+    code: "LOGIN_REQUIRED",
   },
 
   {

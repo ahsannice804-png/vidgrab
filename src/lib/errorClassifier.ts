@@ -76,6 +76,10 @@ const MATCHERS: Array<{ re: RegExp; code: ApiErrorCode }> = [
   // video was removed.
   { re: /requiring login/i, code: "LOGIN_REQUIRED" },
   { re: /only available for (?:registered|logged[- ]?in) users/i, code: "LOGIN_REQUIRED" },
+  // Instagram raises "empty media response" when the anonymous web client gets
+  // nothing from the API; yt-dlp's own message instructs passing cookies, so a
+  // logged-in session (INSTAGRAM_COOKIES_*) is the fix. Not proof of deletion.
+  { re: /sent an empty media response/i, code: "LOGIN_REQUIRED" },
 
   // --- Age gates / bot verification / geo blocks ---------------------------
   { re: /login is required/i, code: "RESTRICTED" },

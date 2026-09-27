@@ -1,0 +1,1 @@
+[cookies] No YouTube cookies configured (YOUTUBE_COOKIES_PATH/CONTENT missing, empty or unreadable). YouTube commonly bot-blocks datacenter IPs without a logged-in session — expect frequent RESTRICTED/EXTRACTOR failures on production hosts until cookies are set.
