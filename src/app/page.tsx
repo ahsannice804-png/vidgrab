@@ -7,6 +7,8 @@ import FAQSection from "@/components/FAQSection";
 import JsonLd from "@/components/JsonLd";
 import AdBanner728x90 from "@/components/ads/AdBanner728x90";
 import AdNativeBanner from "@/components/ads/AdNativeBanner";
+import ToolGuide from "@/components/ToolGuide";
+import RelatedGuides from "@/components/blog/RelatedGuides";
 import { getHomeSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site, siteDescription } from "@/lib/site";
 import { TIKTOK_ENABLED, PLATFORM_LIST } from "@/lib/features";
@@ -27,7 +29,8 @@ const seo = getHomeSeo();
 const HOME_FAQ = [
   {
     question: "Is it really free to download videos?",
-    answer: "Yes — no fees, no limits, no paywall. Download as much as you want.",
+    answer:
+      "Yes — no fees, no paywall and no account. The only limit is a short wait if you start a lot of downloads very quickly, which keeps the shared server fast for everyone.",
   },
   {
     question: "How do I download a YouTube video in 1080p HD?",
@@ -52,6 +55,16 @@ const HOME_FAQ = [
     question: "Can I download Facebook videos?",
     answer:
       "Yes. Paste any public video link — watch links, page videos, reels or short fb.watch links — and download the original MP4. Videos locked to signed-in viewers can\u2019t be downloaded.",
+  },
+  {
+    question: "Why can\u2019t some videos be downloaded?",
+    answer:
+      "The tool only fetches videos a logged-out visitor can watch. Private, friends-only, members-only, age-restricted and some region-locked videos can\u2019t be downloaded, because we never sign in to accounts.",
+  },
+  {
+    question: "Do you keep copies of the videos I download?",
+    answer:
+      "No. Files are prepared in temporary storage so your browser can fetch them, then deleted automatically after about half an hour at most.",
   },
   {
     question: "Will it work on my phone?",
@@ -234,9 +247,116 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ToolGuide labelledBy="home-guide">
+        <h2 id="home-guide">How this video downloader works</h2>
+        <p>
+          Paste a link into the box at the top of the page and the tool works out
+          which platform it belongs to on its own, so you don&rsquo;t need to pick YouTube,
+          Instagram or Facebook first. It then asks that platform which versions of the
+          video it has stored and shows you each real option with its file size. When
+          you choose one, the file is prepared on our server and handed to your
+          browser as a normal download. There&rsquo;s no app, no extension and no account.
+        </p>
+        <p>
+          On YouTube, the higher qualities come as separate picture and sound streams,
+          so we merge them into a single MP4 with FFmpeg before you get it. Audio
+          downloads are converted to MP3 on the server. Prepared files sit in
+          temporary storage only long enough for you to fetch them, about half an hour
+          at most, and are then deleted automatically.
+        </p>
+
+        <h2>Which links work</h2>
+        <ul>
+          <li>
+            <strong>YouTube:</strong> <code>youtube.com/watch?v=</code>, <code>youtu.be</code>,
+            Shorts, <code>m.youtube.com</code> and YouTube Music links. More on the{" "}
+            <Link href="/youtube-video-downloader">YouTube downloader</Link> page.
+          </li>
+          <li>
+            <strong>Instagram:</strong> Reels and video posts (<code>/reel/</code>,{" "}
+            <code>/p/</code>, <code>/tv/</code>) from public accounts. See the{" "}
+            <Link href="/instagram-reels-downloader">Instagram Reel downloader</Link>.
+          </li>
+          <li>
+            <strong>Facebook:</strong> <code>fb.watch</code>, <code>/share/v/</code>, watch,
+            Page video and Reel links. See the{" "}
+            <Link href="/facebook-video-downloader">Facebook video downloader</Link>.
+          </li>
+        </ul>
+        <p>
+          The link has to point at one video. Profiles, channels, playlists, groups
+          and Stories aren&rsquo;t supported. If you&rsquo;re not sure where to find the right
+          link in an app, our guide to{" "}
+          <Link href="/blog/copy-video-link-guide">copying a video link</Link> shows the
+          exact buttons.
+        </p>
+
+        <h2>Picking a quality or format</h2>
+        <p>
+          Qualities run from 360p to 1080p HD, but you&rsquo;ll only see the ones the video
+          actually has; we never upscale and relabel a lower version. As a rule of
+          thumb, 480p or 720p is plenty on a phone, 720p suits a laptop, and 1080p is
+          the one for a TV or for anything you&rsquo;ll edit. Each step up roughly doubles
+          the file size. For lectures, podcasts and music, the <strong>Audio</strong> tab
+          on YouTube and Facebook gives you an MP3 at a fraction of the size. Our
+          guides to <Link href="/blog/video-quality-360p-720p-1080p">video quality</Link>{" "}
+          and <Link href="/blog/mp4-vs-mp3-vs-webm">file formats</Link> go deeper.
+        </p>
+
+        <h2>Where the file goes</h2>
+        <p>
+          Downloads land wherever your browser normally saves files. On an iPhone,
+          Safari puts them in the Files app under Downloads; open the video there, tap
+          Share and choose Save Video to add it to Photos. On Android they go to the
+          Download folder, which most gallery apps pick up automatically. On Windows
+          and Mac, look in your Downloads folder. If something seems to have vanished,{" "}
+          <Link href="/blog/find-downloaded-videos">finding downloaded videos</Link>{" "}
+          lists every location.
+        </p>
+
+        <h2>What it can&rsquo;t do</h2>
+        <p>
+          We&rsquo;d rather be clear about the limits than have you guess. The tool only
+          fetches videos that a logged-out visitor could watch. Private videos,
+          friends-only Facebook posts, private Instagram accounts, members-only and
+          age-restricted YouTube videos can&rsquo;t be downloaded, because we never sign in
+          to anyone&rsquo;s account. Some videos are blocked in the country our server is
+          in. Livestreams can only be saved once the replay has finished processing.
+          And downloads top out at 1080p.
+        </p>
+        <p>
+          If something fails, the message tells you why, and{" "}
+          <Link href="/blog/why-video-downloads-fail">why video downloads fail</Link>{" "}
+          explains each one. Slow downloads usually speed up with a lower quality or a
+          better connection; see{" "}
+          <Link href="/blog/video-download-slow-fixes">eight practical fixes</Link>.
+        </p>
+        <p>
+          Finally, a download tool doesn&rsquo;t change who owns a video. Save your own
+          uploads, videos the creator has offered for download, and openly licensed
+          content.{" "}
+          <Link href="/blog/is-downloading-videos-legal">
+            Is it legal to download videos?
+          </Link>{" "}
+          gives a balanced overview.
+        </p>
+      </ToolGuide>
+
       <AdNativeBanner />
 
       <FAQSection items={HOME_FAQ} />
+
+      <RelatedGuides
+        slugs={[
+          "download-youtube-videos-iphone-android-pc",
+          "save-instagram-reels-without-watermark",
+          "download-facebook-videos-fb-watch",
+          "video-quality-360p-720p-1080p",
+          "why-video-downloads-fail",
+          "find-downloaded-videos",
+        ]}
+        title="Guides and help"
+      />
     </>
   );
 }

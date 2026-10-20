@@ -4,7 +4,10 @@ import JsonLd from "@/components/JsonLd";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, site } from "@/lib/site";
 
-export const metadata = simpleMetadata(getSeo("contact").title, getSeo("contact").description);
+export const metadata = {
+  ...simpleMetadata(getSeo("contact").title, getSeo("contact").description),
+  alternates: { canonical: "/contact" },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -66,7 +69,24 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <div className="mt-12 rounded-2xl border border-border bg-card p-6">
+        <div className="mt-8 rounded-2xl border border-border bg-card p-6">
+          <h2 className="text-sm font-semibold">Copyright notices</h2>
+          <p className="mt-2 text-sm leading-6 text-muted">
+            If you own the rights to a video and believe the service is being used to
+            download it unlawfully, email{" "}
+            <a href={`mailto:${site.email}`} className="text-violet-600 underline underline-offset-2">
+              {site.email}
+            </a>{" "}
+            with the exact URL(s), a description of the work, and how we can reach you.
+            See our{" "}
+            <Link href="/terms-of-service" className="text-violet-600 underline underline-offset-2">
+              Terms of Service
+            </Link>{" "}
+            for details.
+          </p>
+        </div>
+
+        <div className="mt-8 rounded-2xl border border-border bg-card p-6">
           <h2 className="text-sm font-semibold">About this project</h2>
           <p className="mt-2 text-sm leading-6 text-muted">
             {site.name} was built because most existing downloader sites were slow,

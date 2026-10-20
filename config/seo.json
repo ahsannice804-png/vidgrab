@@ -44,5 +44,11 @@
   "about": {
     "title": "About VideosDownloader - Free Video Downloader",
     "description": "Why we built a fast, honest, ad-friendly online video downloader — free forever, no tricks, no watermarks, no fake download buttons."
+  },
+  "blog": {
+    "title": "Video Download Guides & How-Tos",
+    "description": "Practical guides for saving YouTube, Instagram and Facebook videos: picking the right quality and format, fixing failed or slow downloads, and finding your files.",
+    "h1": "Guides for saving videos the right way",
+    "subtitle": "Plain-English help for downloading YouTube, Instagram and Facebook videos, choosing a quality or format, and fixing the errors people actually hit."
   }
 }

@@ -4,7 +4,10 @@ import JsonLd from "@/components/JsonLd";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, site } from "@/lib/site";
 
-export const metadata = simpleMetadata(getSeo("terms").title, getSeo("terms").description);
+export const metadata = {
+  ...simpleMetadata(getSeo("terms").title, getSeo("terms").description),
+  alternates: { canonical: "/terms-of-service" },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -18,7 +21,7 @@ export default function TermsPage() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <PageHeader title="Terms of Service" subtitle="Last updated: September 17, 2026" />
+      <PageHeader title="Terms of Service" subtitle="Last updated: October 20, 2026" />
       <div className="mx-auto w-full max-w-3xl px-4 sm:px-6">
         <Prose>
           <h2>1. The service</h2>
@@ -47,6 +50,11 @@ export default function TermsPage() {
             kind, express or implied. While we work hard to keep it fast and reliable,
             we do not guarantee uninterrupted availability, and availability of any
             specific video depends on the source platform.
+          </p>
+          <p>
+            The guides and articles on this site are general information written to be
+            helpful. They are not legal advice, and platform menus and features can
+            change after an article is published.
           </p>
 
           <h2>4. Limitation of liability</h2>

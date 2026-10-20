@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import type { WithContext, WebApplication, FAQPage, BreadcrumbList } from "@/lib/schema";
 import DownloadTool from "@/components/DownloadTool";
 import HowItWorks from "@/components/HowItWorks";
@@ -6,6 +7,8 @@ import FAQSection from "@/components/FAQSection";
 import TrustBadges from "@/components/TrustBadges";
 import JsonLd from "@/components/JsonLd";
 import AdBanner300x250 from "@/components/ads/AdBanner300x250";
+import ToolGuide from "@/components/ToolGuide";
+import RelatedGuides from "@/components/blog/RelatedGuides";
 import { getSeo } from "@/lib/seo";
 import { absoluteUrl, getBaseUrl, site } from "@/lib/site";
 
@@ -47,6 +50,16 @@ const IG_FAQ = [
     question: "How do I copy an Instagram Reel link?",
     answer:
       "Open the reel in the Instagram app, tap the share icon, then choose \u201cCopy link.\u201d On desktop, click the \u2026 menu and select \u201cCopy link.\u201d",
+  },
+  {
+    question: "Can I download Instagram Stories or Highlights?",
+    answer:
+      "No. The tool supports Reels and video posts from public accounts. Stories, Highlights and profile links aren\u2019t supported.",
+  },
+  {
+    question: "Can I save a Reel\u2019s audio as MP3 here?",
+    answer:
+      "Not directly \u2014 Instagram videos are saved as MP4. You can convert the MP4 to MP3 afterwards with a free tool like VLC or Audacity, or use Instagram\u2019s own Save audio feature to reuse a sound inside the app.",
   },
 ];
 
@@ -118,39 +131,117 @@ export default function InstagramPage() {
             <DownloadTool platform="instagram" />
           </div>
           <div className="mt-5">
-            <TrustBadges />
+            <TrustBadges mp3={false} />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 sm:py-16" aria-labelledby="ig-content">
-        <h2 id="ig-content" className="text-xl font-bold tracking-tight sm:text-2xl">
-          Save Instagram Reels as MP4, No Watermark
-        </h2>
-        <div className="mt-5 space-y-4 text-sm leading-7 text-muted sm:text-base">
-          <p>
-            Reels disappear from your feed — but they don\u2019t have to disappear from
-            your device. Paste the reel link above and get the original MP4, ready to
-            keep forever or edit offline.
-          </p>
-          <p>
-            The tool also works for regular Instagram posts (&ldquo;photo and video&rdquo; posts).
-            Reels usually have a single best quality, and when more than one is
-            available we list each one with its real file size, just like the YouTube
-            tool.
-          </p>
-          <p>
-            Everything runs in your browser with no app to install, and because saves
-            are powered by our servers, even long reels download quickly on mobile data.
-          </p>
-        </div>
-      </section>
+      <ToolGuide labelledBy="ig-content">
+        <h2 id="ig-content">How the Instagram Reel downloader works</h2>
+        <p>
+          A Reel in the Instagram app isn&rsquo;t a video with a logo painted on it. The
+          app plays a plain video file and draws the username, caption and buttons on
+          top while you watch. When you paste a link here, we fetch that same file, the
+          one Instagram serves to its own player, and hand it to you as an MP4. That&rsquo;s
+          why the download has no watermark: there was never one in the file.
+        </p>
+        <p>
+          The bouncing logo you may have seen elsewhere comes from Instagram&rsquo;s own
+          <strong> Download</strong> option, which stamps the Instagram logo and the
+          creator&rsquo;s handle onto the export so reposts stay credited.{" "}
+          <Link href="/blog/save-instagram-reels-without-watermark">
+            Saving Reels without a watermark
+          </Link>{" "}
+          explains the difference between saving, downloading and screen recording.
+        </p>
+
+        <h2>Supported Instagram links</h2>
+        <ul>
+          <li><code>instagram.com/reel/&hellip;</code> and <code>instagram.com/reels/&hellip;</code> for Reels</li>
+          <li><code>instagram.com/p/&hellip;</code> for video posts in the feed and grid</li>
+          <li><code>instagram.com/tv/&hellip;</code> for older long-form videos</li>
+          <li>Links copied from the app, including the <code>?igsh=</code> tracking code on the end</li>
+        </ul>
+        <p>
+          Profile links, Stories and Highlights aren&rsquo;t supported, and neither is
+          anything from a private account. To get the right link, tap the paper-plane
+          share icon on the Reel and choose <strong>Copy link</strong>; on a computer, use
+          the <strong>&hellip;</strong> menu on the post. Our{" "}
+          <Link href="/blog/copy-video-link-guide">link-copying guide</Link> shows where
+          the option sits on each platform.
+        </p>
+
+        <h2>What quality to expect</h2>
+        <p>
+          Instagram usually keeps one playback version of each Reel, so you&rsquo;ll normally
+          see a single best-quality option rather than a list. That version is the
+          compressed copy Instagram serves to every viewer, which looks good on a phone
+          and acceptable on a laptop. It can&rsquo;t be sharper than what Instagram stores.
+          If the Reel is yours, the original export in your camera roll or editing app
+          will always be better than any download.
+        </p>
+        <p>
+          This tool saves Instagram videos as MP4 only. If you&rsquo;re after the sound,{" "}
+          <Link href="/blog/instagram-reel-audio-mp3">saving Reel audio as MP3</Link>{" "}
+          covers Instagram&rsquo;s own Save audio feature and how to convert the MP4 on
+          your phone or computer.
+        </p>
+
+        <h3>Reels, posts and older videos</h3>
+        <p>
+          Reels and single-video posts are the most reliable. Carousel posts that mix
+          several photos and videos can be hit-and-miss, because the tool is built
+          around one video per link. Older Reels were often stored at a lower
+          resolution than recent ones, so a Reel from a few years ago may look softer
+          than you remember. That&rsquo;s the version Instagram still has, not something the
+          download changed.
+        </p>
+
+        <h2>Troubleshooting</h2>
+        <ul>
+          <li>
+            <strong>Nothing happens when you tap download on a phone:</strong> you&rsquo;re
+            probably inside Instagram&rsquo;s built-in browser. Open Safari or Chrome
+            yourself and paste the link there.
+          </li>
+          <li>
+            <strong>&ldquo;Requires login&rdquo; or &ldquo;private&rdquo;:</strong> the account is private or the
+            post is restricted. We never ask for your Instagram login, and you shouldn&rsquo;t
+            give it to any site that does.
+          </li>
+          <li>
+            <strong>&ldquo;Not a valid link&rdquo;:</strong> you copied a profile or extra text along with
+            the link. Copy it again from the Reel&rsquo;s share sheet.
+          </li>
+          <li>
+            <strong>Can&rsquo;t find the file:</strong> on iPhone it&rsquo;s in Files &gt; Downloads until
+            you choose Save Video; on Android it&rsquo;s in the Download folder.
+          </li>
+        </ul>
+        <p>
+          The full phone walkthrough is in{" "}
+          <Link href="/blog/download-instagram-videos-mobile">
+            downloading Instagram videos on iPhone and Android
+          </Link>
+          . Please only save Reels you have the right to keep, and credit the creator
+          if you share one.
+        </p>
+      </ToolGuide>
 
       <AdBanner300x250 />
 
       <HowItWorks />
 
       <FAQSection title="Instagram Reel Downloader FAQ" items={IG_FAQ} />
+
+      <RelatedGuides
+        slugs={[
+          "save-instagram-reels-without-watermark",
+          "download-instagram-videos-mobile",
+          "instagram-reel-audio-mp3",
+        ]}
+        title="Instagram guides"
+      />
     </>
   );
 }

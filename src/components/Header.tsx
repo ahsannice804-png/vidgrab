@@ -15,6 +15,7 @@ const LINKS = [
     ? [{ href: "/tiktok-video-downloader", label: "TikTok" }]
     : []),
   { href: "/facebook-video-downloader", label: "Facebook" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];

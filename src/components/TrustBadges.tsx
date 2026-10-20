@@ -1,12 +1,13 @@
 import Link from "next/link";
 
-export default function TrustBadges() {
+/** `mp3` hides the MP3 badge on tools that don't offer audio-only output (Instagram). */
+export default function TrustBadges({ mp3 = true }: { mp3?: boolean }) {
   const badges = [
     { label: "100% Free", icon: "check" },
     { label: "No account", icon: "check" },
     { label: "No watermark", icon: "check" },
     { label: "Up to 1080p", icon: "check" },
-    { label: "MP3 audio too", icon: "music" },
+    ...(mp3 ? [{ label: "MP3 audio too", icon: "music" }] : []),
   ] as const;
 
   return (

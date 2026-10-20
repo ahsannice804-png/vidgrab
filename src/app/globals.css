@@ -37,7 +37,7 @@ html {
 }
 
 /* Global guard against third-party ad widgets injected wider than the
-   viewport (Adsterra Social Bar, floating Monetag overlays). Propagated
+   viewport (Adsterra Social Bar overlays). Propagated
    viewport overflow on html + clip on body stops document width from ever
    exceeding the screen, so the page can't auto-shrink/zoom-out. body uses
    clip (not hidden) so it never becomes a scroll container, which would

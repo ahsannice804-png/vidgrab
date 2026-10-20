@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --test src/lib/detection.test.ts src/lib/errorClassifier.test.ts"
+    "test": "node --test src/lib/detection.test.ts src/lib/errorClassifier.test.ts src/lib/blog/content.test.ts"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
